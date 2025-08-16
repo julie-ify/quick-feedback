@@ -6,16 +6,16 @@
       <%= render "form", feedback: Feedback.new %>
     <% end %>
   </div>
-
+	<h2 class="subtitle">Recent Feedbacks</h2>
   <%= turbo_stream_from "feedbacks" %>
-
   <%= turbo_frame_tag "feedbacks" do %>
     <div id="feedbacks_list" class="feedbacks-list">
 			<% if @feedbacks.empty? %>
 				<p class="subtitle">No feedbacks yet. Be the first to share your thoughts!</p>
 			<% else %>
-				<h2 class="subtitle">Recent Feedbacks</h2>
-				<%= render @feedbacks %>
+				<div id="feedbacks">
+					<%= render @feedbacks %>
+				</div>
 			<% end %>
 		</div>
   <% end %>

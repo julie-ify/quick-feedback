@@ -1,4 +1,15 @@
 <%= form_with(model: feedback, local: true, html: { class: "feedback-form" }) do |form| %>
+	<% if feedback.errors.any? %>
+		<div data-controller="error" class="error-messages">
+			<h2><%= pluralize(feedback.errors.count, "error") %> prevented this feedback from being saved:</h2>
+			<ul>
+				<% feedback.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
   <div class="form-group content-input">
     <%= form.label :content, "Your Feedback", class: "form-label" %>
     <%= form.text_area :content, row: 3, class: "form-input" %>
@@ -6,20 +17,10 @@
 
   <div class="form-group">
     <%= form.label :rating, "Rate Us (1–5)", class: "form-label" %>
-    <%= form.number_field :rating, in: 1..5, class: "form-input rating-input" %>
+    <%= form.number_field :rating, class: "form-input rating-input" %>
   </div>
 
   <div class="form-actions">
     <%= form.submit "Submit Feedback", class: "submit-button" %>
   </div>
-<% end %>
-<% if feedback.errors.any? %>
-	<div class="error-messages">
-		<h2>Errors:</h2>
-		<ul>
-			<% feedback.errors.full_messages.each do |message| %>
-				<li><%= message %></li>
-			<% end %>
-		</ul>
-	</div>
 <% end %>

@@ -1,0 +1,10 @@
+<% flash.each do |key, message| %>
+  <div 
+    class="flash <%= key %>" 
+    data-controller="flash" 
+    data-flash-target="message"
+  >
+    <span><%= message %></span>
+    <button type="button" data-action="flash#close">✖</button>
+  </div>
+<% end %>

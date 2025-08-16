@@ -2,20 +2,27 @@ class FeedbacksController < ApplicationController
   before_action :set_feedback, only: %i[like]
 
   def index
-    @feedbacks = Feedback.order(created_at: :desc)
+    @feedbacks = Feedback.all.order(created_at: :desc)
   end
 
   def create
     @feedback = Feedback.new(feedback_params)
     @feedback.likes_count = 0
-
+    
     if @feedback.save
       respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to feedbacks_path, notice: "Feedback added!" }
+        format.turbo_stream do
+          @feedbacks = Feedback.all.order(created_at: :desc)
+          flash.now[:notice] = "Feedback added!" 
+        end
+        format.html { redirect_to feedbacks_path }
       end
     else
-      render :index, status: :unprocessable_entity
+      @feedbacks = Feedback.all 
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_feedback", partial: "form", locals: { feedback: @feedback }) }
+        format.html { render :index, status: :unprocessable_content }
+      end
     end
   end
 

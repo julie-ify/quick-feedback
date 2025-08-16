@@ -11,10 +11,10 @@
 
   <body>
 		<div class="container">
-		<% flash.each do |type, message| %>
-			<div class="flash <%= type %>"><%= message %></div>
-		<% end %>
-    <%= yield %>
+			<div id="flash" data-controller="flash">
+    		<%= render "shared/flash" %>
+  		</div>
+    	<%= yield %>
 		</div>
   </body>
 </html>
