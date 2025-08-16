@@ -49,6 +49,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  
+  gem 'rspec-rails', '~> 6.0'
+  gem 'factory_bot_rails'
+  gem 'faker'
 
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
@@ -58,3 +62,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "hotwire-rails", "~> 0.1.3"
+
+gem "importmap-rails", "~> 2.2"
+

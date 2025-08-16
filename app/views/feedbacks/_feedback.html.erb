@@ -1,0 +1,23 @@
+<%= turbo_frame_tag dom_id(feedback) do %>
+  <div class="feedback" data-controller="highlight like">
+    <p><%= feedback.content %></p>
+    <div class="rating">
+      <% feedback.rating.times do %>
+        <span class="star">&#9733;</span>
+      <% end %>
+      <% (5 - feedback.rating).times do %>
+        <span class="star empty">&#9733;</span>
+      <% end %>
+    </div>
+
+    <p>Likes: <span data-like-target="count"><%= feedback.likes_count %></span></p>
+
+    <%= button_to "👍 Like", like_feedback_path(feedback), class: 'button',
+          method: :post,
+          form: { data: { turbo_stream: true, action: "click->like#animate" } } %>
+  </div>
+<% end %>
+
+
+
+

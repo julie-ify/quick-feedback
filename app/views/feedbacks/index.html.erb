@@ -1,0 +1,23 @@
+<div class="homepage">
+  <h1 class="title">✨ QuickFeedback ✨</h1>
+
+  <div class="form-container">
+    <%= turbo_frame_tag "new_feedback" do %>
+      <%= render "form", feedback: Feedback.new %>
+    <% end %>
+  </div>
+
+  <%= turbo_stream_from "feedbacks" %>
+
+  <%= turbo_frame_tag "feedbacks" do %>
+    <div id="feedbacks_list" class="feedbacks-list">
+			<% if @feedbacks.empty? %>
+				<p class="subtitle">No feedbacks yet. Be the first to share your thoughts!</p>
+			<% else %>
+				<h2 class="subtitle">Recent Feedbacks</h2>
+				<%= render @feedbacks %>
+			<% end %>
+		</div>
+  <% end %>
+</div>
+
