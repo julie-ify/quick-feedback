@@ -10,6 +10,9 @@ RSpec.describe "Feedbacks", type: :system do
 
     expect(page).to have_content("This app is awesome!")
     expect(page).to have_selector(".star", count: 5)
+
+    click_button '👍 Like'
+    expect(page).to have_content("Likes: 1")
   end
   it "displays error message when invalid feedback is created" do
     visit root_path
